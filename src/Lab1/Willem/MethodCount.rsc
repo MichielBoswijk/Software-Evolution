@@ -7,10 +7,24 @@ import lang::java::jdt::m3::AST;
 import List;
 import Set;
 import IO;
+import util::Math;
 
-loc project = |project://smallsql0.21_src|;
+M3 createModel() {
+	loc project = |project://smallsql0.21_src|;
+	return createM3FromEclipseProject(project);
+}
 
-int countMethods(loc project) {
-	list[int] methods = [size(readFileLines(method)) | method <- methods(createM3FromEclipseProject(project))];
-	return sum(methods)/size(methods);
+real countMethods(M3 model) {
+	list[int] methods = [countLOC(method) | method <- methods(model)];
+	return sum(methods)/toReal(size(methods));
+}
+
+int countLOC(loc file) {
+	// TODO ignore empty lines and comments
+	return size(readFileLines(file));
+}
+
+int countLines(M3 model) {
+	list[int] files = [countLOC(file) | <file,_> <- declaredTopTypes(model)];
+	return sum(files);
 }
