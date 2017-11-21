@@ -7,10 +7,16 @@ import List;
 data Properties = properties(Metric volume, Metric unitComplexity, Metric duplication, Metric unitSize, Metric unitTesting);
 
 void maintainability(Properties properties) {
-	println(formatMetric(getAnalysability(properties)));
-	println(formatMetric(getChangability(properties)));
-	println(formatMetric(getStability(properties)));
-	println(formatMetric(getTestability(properties)));
+	Metric analysabilityMetric = getAnalysability(properties);
+	Metric changabilityMetric = getChangability(properties);
+	Metric stabilityMetric = getStability(properties);
+	Metric testabilityMetric = getTestability(properties);
+	
+	println(formatMetric(analysabilityMetric));
+	println(formatMetric(changabilityMetric));
+	println(formatMetric(stabilityMetric));
+	println(formatMetric(testabilityMetric));
+	println(formatMetric(getMaintainability(analysabilityMetric, changabilityMetric, stabilityMetric, testabilityMetric)));
 }
 
 private Metric getAnalysability(Properties properties) {
@@ -37,6 +43,14 @@ private Metric getTestability(Properties properties) {
 						properties.unitSize.score.score, 
 						properties.unitTesting.score.score];
 	return metric("Testability", score(average(results)));
+}
+
+private Metric getMaintainability(Metric analysability, Metric changability, Metric stability, Metric testability) {
+	list[int] results = [analysability.score.score,
+						changability.score.score, 
+						stability.score.score,
+						testability.score.score];
+	return metric("Maintainability", score(average(results)));
 }
 
 private int average(list[int] results) {

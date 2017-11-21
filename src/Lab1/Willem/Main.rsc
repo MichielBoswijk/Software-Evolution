@@ -36,6 +36,6 @@ void main(loc project) {
 	println(formatMetric(unitSizeMetric));
 	println(formatMetric(unitTestingMetric));
 	
-	Properties properties = properties(volumeMetric, unitComplexityMetric, duplicationMetric, unitSizeMetric, unitTestingMetric);
-	maintainability(properties);
+	Properties props = properties(volumeMetric, unitComplexityMetric, duplicationMetric, unitSizeMetric, unitTestingMetric);
+	maintainability(props);
 }
