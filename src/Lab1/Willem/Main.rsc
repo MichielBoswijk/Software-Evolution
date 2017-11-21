@@ -16,6 +16,8 @@ import Lab1::Willem::Volume;
 import Lab1::Willem::Util;
 import Lab1::Willem::Metric;
 import Lab1::Willem::Maintainability;
+import Lab1::Willem::UnitTesting;
+import Lab1::Willem::Duplication;
 
 void main(loc project) {
 	set[Declaration] ast = createAstsFromEclipseProject(project, true);
@@ -24,9 +26,9 @@ void main(loc project) {
 	
 	Metric volumeMetric = volume(model);
 	Metric unitComplexityMetric = unitComplexity(units);
-	Metric duplicationMetric = metric("Duplication", score(0));
+	Metric duplicationMetric = duplication();
 	Metric unitSizeMetric = unitSize(units);
-	Metric unitTestingMetric = metric("Unit Testing", score(0));
+	Metric unitTestingMetric = unitTesting();
 	
 	println(formatMetric(volumeMetric));
 	println(formatMetric(unitComplexityMetric));
