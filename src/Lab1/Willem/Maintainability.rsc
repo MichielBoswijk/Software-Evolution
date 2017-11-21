@@ -7,11 +7,6 @@ import List;
 data Properties = properties(Metric volume, Metric unitComplexity, Metric duplication, Metric unitSize, Metric unitTesting);
 
 void maintainability(Properties properties) {
-	println("\n\n####################
-			'####################
-			'Maintainability
-			'####################
-			'####################\n\n");
 	println(formatMetric(getAnalysability(properties)));
 	println(formatMetric(getChangability(properties)));
 	println(formatMetric(getStability(properties)));

@@ -25,11 +25,11 @@ private Metric toMetric(lrel[int,int] results) {
 	real highPercentage = high/toReal(total) * 100;
 	real veryHighPercentage = veryHigh/toReal(total) * 100;
 	
-	println("Low unit complexity percentage <lowPercentage> %");
-	println("Moderate unit complexity percentage <moderatePercentage> %");
-	println("High unit complexity percentage <highPercentage> %");
-	println("Very unit high complexity percentage <veryHighPercentage> %");
-	println("Total unit percentage <veryHighPercentage + highPercentage + moderatePercentage + lowPercentage> %");
+	println("Low unit complexity percentage: <lowPercentage> %");
+	println("Moderate unit complexity percentage: <moderatePercentage> %");
+	println("High unit complexity percentage: <highPercentage> %");
+	println("Very high unit complexity percentage: <veryHighPercentage> %");
+	println("Total unit complexity percentage: <veryHighPercentage + highPercentage + moderatePercentage + lowPercentage> %");
 	
 	int sc = 0;
 	if (moderatePercentage <= 25.0 && highPercentage <= 0.0 && veryHighPercentage <= 0.0) {

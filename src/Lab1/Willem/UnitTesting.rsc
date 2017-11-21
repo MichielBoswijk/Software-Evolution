@@ -5,7 +5,7 @@ import IO;
 
 Metric unitTesting() {
 	real percentage = 70.0;
-	println("Percentage: <percentage>");
+	println("Unit testing percentage: <percentage> %");
 	return toMetric(percentage);
 }
 

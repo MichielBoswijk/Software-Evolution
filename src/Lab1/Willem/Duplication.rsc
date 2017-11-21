@@ -5,7 +5,7 @@ import IO;
 
 Metric duplication() {
 	real percentage = 7.0;
-	println("Percentage: <percentage>");
+	println("Duplication percentage: <percentage>");
 	return toMetric(percentage);
 }
 

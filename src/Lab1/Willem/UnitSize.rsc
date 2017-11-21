@@ -31,11 +31,11 @@ private Metric toMetric(list[int] results) {
 	real highPercentage = high/toReal(total) * 100;
 	real veryHighPercentage = veryHigh/toReal(total) * 100;
 	
-	println("Low unit size percentage <lowPercentage> %");
-	println("Moderate unit size percentage <moderatePercentage> %");
-	println("High unit size percentage <highPercentage> %");
-	println("Very high unit size percentage <veryHighPercentage> %");
-	println("Total percentage <veryHighPercentage + highPercentage + moderatePercentage + lowPercentage> %");
+	println("Low unit size percentage: <lowPercentage> %");
+	println("Moderate unit size percentage: <moderatePercentage> %");
+	println("High unit size percentage: <highPercentage> %");
+	println("Very high unit size percentage: <veryHighPercentage> %");
+	println("Total unit size percentage: <veryHighPercentage + highPercentage + moderatePercentage + lowPercentage> %");
 	
 	int sc = 0;
 	if (moderatePercentage <= 19.5 && highPercentage <= 10.9 && veryHighPercentage <= 3.9) {
