@@ -1,15 +1,16 @@
 module Lab1::Willem::UnitSize
 
-import util::ValueUI;
-import lang::java::m3::Core;
-import lang::java::jdt::m3::Core;
-import lang::java::jdt::m3::AST;
+import IO;
 import List;
 import Set;
-import IO;
+
 import util::Math;
-import Lab1::Willem::Util;
+
+import lang::java::jdt::m3::AST;
+import lang::java::jdt::m3::Core;
+
 import Lab1::Willem::Metric;
+import Lab1::Willem::Util;
 
 Metric unitSize(set[Declaration] units) {
 	list[int] sizes = [countLOC(unit.src) | unit <- units]; 	

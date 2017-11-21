@@ -1,7 +1,8 @@
 module Lab1::Willem::Duplication
 
-import Lab1::Willem::Metric;
 import IO;
+
+import Lab1::Willem::Metric;
 
 Metric duplication() {
 	real percentage = 7.0;

@@ -1,8 +1,9 @@
 module Lab1::Willem::Maintainability
 
-import Lab1::Willem::Metric;
 import IO;
 import List;
+
+import Lab1::Willem::Metric;
 
 data Properties = properties(Metric volume, Metric unitComplexity, Metric duplication, Metric unitSize, Metric unitTesting);
 

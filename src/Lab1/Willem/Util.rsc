@@ -1,9 +1,9 @@
 module Lab1::Willem::Util
 
-import lang::java::m3::Core;
-import lang::java::jdt::m3::Core;
-import lang::java::jdt::m3::AST;
 import Prelude;
+
+import lang::java::jdt::m3::AST;
+import lang::java::jdt::m3::Core;
 
 set[Declaration] getUnits(set[Declaration] ast) {
 	set[Declaration] units = {};

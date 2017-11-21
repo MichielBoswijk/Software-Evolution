@@ -1,13 +1,14 @@
 module Lab1::Willem::Volume
 
-import Lab1::Willem::Util;
-import lang::java::m3::Core;
-import lang::java::jdt::m3::Core;
-import lang::java::jdt::m3::AST;
+import IO;
 import List;
 import Set;
+
+import lang::java::jdt::m3::AST;
+import lang::java::jdt::m3::Core;
+
 import Lab1::Willem::Metric;
-import IO;
+import Lab1::Willem::Util;
 
 Metric volume(M3 model) {
 	set[loc] files = {file | <file,_> <- declaredTopTypes(model)};

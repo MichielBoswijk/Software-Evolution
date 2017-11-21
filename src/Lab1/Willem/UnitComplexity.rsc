@@ -1,12 +1,15 @@
 module Lab1::Willem::UnitComplexity
 
-import lang::java::jdt::m3::Core;
-import lang::java::jdt::m3::AST;
-import util::Math;
-import List;
-import Lab1::Willem::Util;
 import IO;
+import List;
+
+import util::Math;
+
+import lang::java::jdt::m3::AST;
+import lang::java::jdt::m3::Core;
+
 import Lab1::Willem::Metric;
+import Lab1::Willem::Util;
 
 Metric unitComplexity(set[Declaration] units) {
 	lrel[int,int] results = [<computeCC(unit), countLOC(unit.src)> | unit <- units];

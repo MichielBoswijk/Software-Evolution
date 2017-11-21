@@ -1,7 +1,8 @@
 module Lab1::Willem::UnitTesting
 
-import Lab1::Willem::Metric;
 import IO;
+
+import Lab1::Willem::Metric;
 
 Metric unitTesting() {
 	real percentage = 70.0;
