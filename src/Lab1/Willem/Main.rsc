@@ -27,12 +27,12 @@ void main(loc project) {
 	Metric unitSizeMetric = unitSize(units);
 	Metric unitTestingMetric = unitTesting();
 	
-	//println(formatMetric(volumeMetric));
-	//println(formatMetric(unitComplexityMetric));
-	//println(formatMetric(duplicationMetric));
-	//println(formatMetric(unitSizeMetric));
-	//println(formatMetric(unitTestingMetric));
+	println(formatMetric(volumeMetric));
+	println(formatMetric(unitComplexityMetric));
+	println(formatMetric(duplicationMetric));
+	println(formatMetric(unitSizeMetric));
+	println(formatMetric(unitTestingMetric));
 	
 	Properties props = properties(volumeMetric, unitComplexityMetric, duplicationMetric, unitSizeMetric, unitTestingMetric);
-	//maintainability(props);
+	maintainability(props);
 }
