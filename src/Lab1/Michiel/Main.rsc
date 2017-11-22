@@ -22,7 +22,7 @@ void main(loc project) {
 	
 	Metric volumeMetric = volume(model);
 	Metric unitComplexityMetric = unitComplexity(units);
-	Metric duplicationMetric = duplication();
+	Metric duplicationMetric = duplication(model);
 	Metric unitSizeMetric = unitSize(units);
 	Metric unitTestingMetric = unitTesting();
 	
