@@ -19,10 +19,11 @@ void main(loc project) {
 	set[Declaration] ast = createAstsFromEclipseProject(project, true);
 	M3 model = createM3FromEclipseProject(project);
 	set[Declaration] units = getUnits(ast);
+	list[list[str]] files = getCleanFiles(model);
 	
-	Metric volumeMetric = volume(model);
+	Metric volumeMetric = volume(files);
 	Metric unitComplexityMetric = unitComplexity(units);
-	Metric duplicationMetric = duplication();
+	Metric duplicationMetric = duplication(files);
 	Metric unitSizeMetric = unitSize(units);
 	Metric unitTestingMetric = unitTesting();
 	

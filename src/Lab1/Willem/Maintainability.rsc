@@ -31,7 +31,7 @@ private Metric getAnalysability(Properties properties) {
 private Metric getChangability(Properties properties) {
 	list[int] results = [properties.unitComplexity.score.score,
 						properties.duplication.score.score];
-	return metric("Changability", score(average(results)));
+	return metric("Changeability", score(average(results)));
 }
 
 private Metric getStability(Properties properties) {

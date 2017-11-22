@@ -14,9 +14,17 @@ set[Declaration] getUnits(set[Declaration] ast) {
 	return units;
 }
 
-int countLOC(loc location){
+int countLOC(loc location) {
+	return size(cleanedLines(location));
+}
 
-	int nLines = 0;
+list[list[str]] getCleanFiles(M3 model) {
+	set[loc] locations = {location | <location,_> <- declaredTopTypes(model)};
+	return [cleanedLines(location) | location <- locations];
+}
+
+private list[str] cleanedLines(loc location) {
+	list[str] lines = [];
 	bool multiline = false;
 
 	// read source code of path into list of strings
@@ -31,8 +39,8 @@ int countLOC(loc location){
 			multiline = false;
 		// if no empty line or any comment starting points are found (and not part of multiline), increment counter 
 		} else if (/^($|\/\/|\/\*|\*)/ !:= trim(line) && !multiline) {
-			nLines += 1;
+			lines += line;
 		}
 	}
-	return nLines;
+	return lines;
 }

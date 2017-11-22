@@ -10,22 +10,21 @@ import lang::java::jdt::m3::Core;
 import Lab1::Willem::Metric;
 import Lab1::Willem::Util;
 
-Metric volume(M3 model) {
-	set[loc] files = {file | <file,_> <- declaredTopTypes(model)};
-	int result = sum([0] + [countLOC(file) | file <- files]);
+Metric volume(list[list[str]] files) {
+	int result = sum([0] + [size(file) | file <- files]);
 	println("Total LOC: <result>");
 	return toMetric(result);
 }
 
 private Metric toMetric(int result) {
 	int sc = 0;
-	if (result >= 0 && result < 66000) { 
+	if (result < 66000) { 
 		sc = 2;
-	} else if (result >= 66000 && result < 246000) {
+	} else if (result < 246000) {
 		sc = 1;
-	} else if (result >= 246000 && result < 665000) {
+	} else if (result < 665000) {
 		sc = 0;
-	} else if (result >= 665000 && result < 1310000) {
+	} else if (result < 1310000) {
 		sc = -1;
 	} else {
 		sc = -2;	
