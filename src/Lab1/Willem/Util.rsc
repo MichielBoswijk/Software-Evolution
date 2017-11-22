@@ -5,6 +5,9 @@ import Prelude;
 import lang::java::jdt::m3::AST;
 import lang::java::jdt::m3::Core;
 
+alias chunk = list[str];
+alias file = list[str];
+
 set[Declaration] getUnits(set[Declaration] ast) {
 	set[Declaration] units = {};
 	visit(ast) {
@@ -18,12 +21,12 @@ int countLOC(loc location) {
 	return size(cleanedLines(location));
 }
 
-list[list[str]] getCleanFiles(M3 model) {
+list[file] getCleanFiles(M3 model) {
 	set[loc] locations = {location | <location,_> <- declaredTopTypes(model)};
 	return [cleanedLines(location) | location <- locations];
 }
 
-private list[str] cleanedLines(loc location) {
+private file cleanedLines(loc location) {
 	list[str] lines = [];
 	bool multiline = false;
 

@@ -10,7 +10,7 @@ import lang::java::jdt::m3::Core;
 import Lab1::Willem::Metric;
 import Lab1::Willem::Util;
 
-Metric volume(list[list[str]] files) {
+Metric volume(list[file] files) {
 	int result = sum([0] + [size(file) | file <- files]);
 	println("Total LOC: <result>");
 	return toMetric(result);

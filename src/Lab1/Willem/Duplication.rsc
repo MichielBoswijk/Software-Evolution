@@ -12,7 +12,7 @@ import lang::java::jdt::m3::Core;
 import Lab1::Willem::Metric;
 import Lab1::Willem::Util;
 
-Metric duplication(list[list[str]] files) {
+Metric duplication(list[file] files) {
 	int total = sum([0] + [size(file) | file <- files]);
 	int duplicates = countDuplicates(files, filesToChunks(files));
 	real percentage = duplicates/toReal(total) * 100;
@@ -38,9 +38,9 @@ private Metric toMetric(real result) {
 	return metric("Duplication", score(sc));
 }
 
-private list[list[str]] filesToChunks(list[list[str]] files) {
-	list[list[str]] chunks = [];
-	for (list[str] file <- files) {
+private list[chunk] filesToChunks(list[list[str]] files) {
+	list[chunk] chunks = [];
+	for (file file <- files) {
 		if(size(file) >= 6) {
 			chunks += [file[i..i+6] | i <- [0..size(file)-5]];
 		}
@@ -48,10 +48,10 @@ private list[list[str]] filesToChunks(list[list[str]] files) {
 	return chunks;
 }
 
-private int countDuplicates(list[list[str]] files, list[list[str]] chunks) {
-	map[list[str], int] countMap = (chunk : 0 | chunk <- chunks);
+private int countDuplicates(list[file] files, list[chunk] chunks) {
+	map[chunk, int] counts = (chunk : 0 | chunk <- chunks);
 	int count = 0;
-	for (list[str] file <- files) {
+	for (file file <- files) {
 		int lines = size(file);
 		int match = -1;
 		 
@@ -60,15 +60,14 @@ private int countDuplicates(list[list[str]] files, list[list[str]] chunks) {
 		}
 		
 		for (index <- [0..lines-5]) {
-			list[str] slice = file[index..index+6];
-			countMap[slice] += 1;
-			if(countMap[slice] > 1) {
+			chunk chunk = file[index..index+6];
+			counts[chunk] += 1;
+			if(counts[chunk] > 1) {
                 int overlap = 0;
                 if(match > -1) {
                         overlap = max(0, 6 - (index - match));
                 }
                 count += 6 - overlap;
-                println("Index: <index>, overlap: <overlap>, match: <match>");
                 match = index;
         		}
 		};
