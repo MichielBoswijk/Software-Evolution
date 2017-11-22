@@ -10,9 +10,8 @@ import lang::java::jdt::m3::Core;
 import Lab1::Willem::Metric;
 import Lab1::Willem::Util;
 
-Metric volume(M3 model) {
-	set[loc] files = {file | <file,_> <- declaredTopTypes(model)};
-	int result = sum([0] + [countLOC(file) | file <- files]);
+Metric volume(list[list[str]] files) {
+	int result = sum([0] + [size(file) | file <- files]);
 	println("Total LOC: <result>");
 	return toMetric(result);
 }
