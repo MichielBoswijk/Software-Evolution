@@ -4,20 +4,23 @@ import IO;
 import List;
 import Map;
 
+import util::Benchmark;
 import util::Math;
-
-import lang::java::jdt::m3::AST;
-import lang::java::jdt::m3::Core;
 
 import Lab1::Metric;
 import Lab1::Util;
 
 Metric duplication(list[file] files) {
-	int total = sum([0] + [size(file) | file <- files]);
-	int duplicates = countDuplicates(files, filesToChunks(files));
-	real percentage = duplicates/toReal(total) * 100;
-	println("Duplicated lines: <duplicates>");
-	println("Total lines: <total>");
+	int window = 6;
+	int totalLOC = sum([0] + [size(file) | file <- files]);
+	
+	<chunks, chunksPerFile> = createChunks(files, window);
+	map[chunk, int] duplicateDistribution = distribution(chunks);
+	list[chunk] duplicateCandidates = [chunk | chunk <- duplicateDistribution, duplicateDistribution[chunk] != 1];
+	
+	int duplicates = countDuplicates(duplicateCandidates, chunksPerFile, window);
+	real percentage = duplicates / toReal(totalLOC) * 100;
+	println("Duplicate lines: <duplicates>");
 	println("Duplication percentage: <percentage> %");
 	return toMetric(percentage);
 }
@@ -38,39 +41,43 @@ private Metric toMetric(real result) {
 	return metric("Duplication", score(sc));
 }
 
-private list[chunk] filesToChunks(list[list[str]] files) {
+private tuple[list[chunk], list[list[chunk]]] createChunks(list[file] files, int window) {
 	list[chunk] chunks = [];
-	for (file file <- files) {
-		if(size(file) >= 6) {
-			chunks += [file[i..i+6] | i <- [0..size(file)-5]];
-		}
-	};
-	return chunks;
+	list[list[chunk]] chunksPerFile = [];
+	
+	for(file <- files) {
+		int lines = size(file);
+		
+		if(lines >= window) {
+			int groups = (lines - window) + 1;
+			newChunks = [slice(file, i, window) | i <- [0..groups]];
+			chunksPerFile += [newChunks];
+			chunks += newChunks;
+		} 
+	}
+	return <chunks, chunksPerFile>;
 }
 
-private int countDuplicates(list[file] files, list[chunk] chunks) {
-	map[chunk, int] counts = (chunk : 0 | chunk <- chunks);
-	int count = 0;
-	for (file file <- files) {
-		int lines = size(file);
-		int match = -1;
-		 
-		if(lines < 6) { 
-			continue;
-		}
+private int countDuplicates(list[chunk] duplicateCandidates, list[list[chunk]] chunksPerFile, int window) {
+	int totalDuplicates = 0;
+	int i = 0;
+	
+	for(file <- chunksPerFile) {
+		int j = 0;
+		int prevIndex = -1;
 		
-		for (index <- [0..lines-5]) {
-			chunk chunk = file[index..index+6];
-			counts[chunk] += 1;
-			if(counts[chunk] > 1) {
-                int overlap = 0;
-                if(match > -1) {
-                        overlap = max(0, 6 - (index - match));
-                }
-                count += 6 - overlap;
-                match = index;
-        		}
-		};
-	};
-	return count;
+		for(currentChunk <- file){
+			if(currentChunk in duplicateCandidates) {
+				if(j - prevIndex >= window || prevIndex == -1){
+					totalDuplicates += window;
+				} else {
+					totalDuplicates += (j - prevIndex);
+				}
+				prevIndex = j;
+			}
+			j += 1;
+		}
+		i += 1;	
+	}
+	return totalDuplicates;
 }

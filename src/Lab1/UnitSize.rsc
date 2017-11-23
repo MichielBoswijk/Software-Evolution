@@ -17,9 +17,6 @@ Metric unitSize(set[Declaration] units) {
 	return toMetric(sizes);
 }
 
-/**
-	See https://www.sig.eu/files/en/080_Benchmark-based_Aggregation_of_Metrics_to_Ratings.pdf Table III (a)
-*/
 private Metric toMetric(list[int] results) {
 	int low = sum([0] + [result | result <- results, result <= 30]);
 	int moderate = sum([0] + [result | result <- results, result > 30, result <= 44]);

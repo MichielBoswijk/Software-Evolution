@@ -6,7 +6,7 @@ import lang::java::m3::Core;
 import lang::java::jdt::m3::AST;
 import lang::java::jdt::m3::Core;
 
-import Lab1::Duplication2;
+import Lab1::Duplication;
 import Lab1::Maintainability;
 import Lab1::Metric;
 import Lab1::UnitComplexity;
@@ -23,7 +23,7 @@ void main(loc project) {
 	
 	Metric volumeMetric = volume(files);
 	Metric unitComplexityMetric = unitComplexity(units);
-	Metric duplicationMetric = duplication(model);
+	Metric duplicationMetric = duplication(files);
 	Metric unitSizeMetric = unitSize(units);
 	Metric unitTestingMetric = unitTesting();
 	
