@@ -2,9 +2,7 @@ module Lab1::Duplication
 
 import IO;
 import List;
-import Map;
 
-import util::Benchmark;
 import util::Math;
 
 import Lab1::Metric;

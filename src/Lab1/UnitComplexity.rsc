@@ -9,6 +9,7 @@ import lang::java::jdt::m3::AST;
 import lang::java::jdt::m3::Core;
 
 import Lab1::Metric;
+import Lab1::RiskProfile;
 import Lab1::Util;
 
 Metric unitComplexity(set[Declaration] units) {
@@ -17,6 +18,26 @@ Metric unitComplexity(set[Declaration] units) {
 }
 
 private Metric toMetric(lrel[int,int] results) {
+	RiskProfile profile = computeRiskProfile(results);	
+	printRiskProfile(profile, "unit complexity");
+	
+	int sc = 0;
+	if (profile.moderate <= 25.0 && profile.high <= 0.0 && profile.veryHigh <= 0.0) {
+		sc = 2;
+	} else if (profile.moderate <= 30.0 && profile.high <= 5.0 && profile.veryHigh <= 0.0) {
+		sc = 1;
+	} else if (profile.moderate <= 40.0 && profile.high <= 10.0 && profile.veryHigh <= 0.0) {
+		sc = 0;
+	} else if (profile.moderate <= 50.0 && profile.high <= 15.0 && profile.veryHigh <= 5.0) {
+		sc = -1;
+	} else {
+		sc = -2; 
+	}
+	
+	return metric("Unit Complexity", score(sc));
+}
+
+private RiskProfile computeRiskProfile(lrel[int, int] results) {
 	int low = sum([0] + [s | <cc,s> <- results, cc >= 1 && cc <= 10]);
 	int moderate = sum([0] + [s | <cc,s> <- results, cc >= 11 && cc <= 20]);
 	int high = sum([0] + [s | <cc,s> <- results, cc >= 21 && cc <= 50]);
@@ -28,26 +49,7 @@ private Metric toMetric(lrel[int,int] results) {
 	real highPercentage = high/toReal(total) * 100;
 	real veryHighPercentage = veryHigh/toReal(total) * 100;
 	
-	println("Low unit complexity percentage: <lowPercentage> %");
-	println("Moderate unit complexity percentage: <moderatePercentage> %");
-	println("High unit complexity percentage: <highPercentage> %");
-	println("Very high unit complexity percentage: <veryHighPercentage> %");
-	println("Total unit complexity percentage: <veryHighPercentage + highPercentage + moderatePercentage + lowPercentage> %");
-	
-	int sc = 0;
-	if (moderatePercentage <= 25.0 && highPercentage <= 0.0 && veryHighPercentage <= 0.0) {
-		sc = 2;
-	} else if (moderatePercentage <= 30.0 && highPercentage <= 5.0 && veryHighPercentage <= 0.0) {
-		sc = 1;
-	} else if (moderatePercentage <= 40.0 && highPercentage <= 10.0 && veryHighPercentage <= 0.0) {
-		sc = 0;
-	} else if (moderatePercentage <= 50.0 && highPercentage <= 15.0 && veryHighPercentage <= 5.0) {
-		sc = -1;
-	} else {
-		sc = -2; 
-	}
-	
-	return metric("Unit Complexity", score(sc));
+	return profile(lowPercentage, moderatePercentage, highPercentage, veryHighPercentage);
 }
 
 private int computeCC(Declaration unit) {

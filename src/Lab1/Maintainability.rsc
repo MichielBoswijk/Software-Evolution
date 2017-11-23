@@ -7,7 +7,7 @@ import Lab1::Metric;
 
 data Properties = properties(Metric volume, Metric unitComplexity, Metric duplication, Metric unitSize, Metric unitTesting);
 
-void maintainability(Properties properties) {
+Metric maintainability(Properties properties) {
 	Metric analysabilityMetric = getAnalysability(properties);
 	Metric changabilityMetric = getChangability(properties);
 	Metric stabilityMetric = getStability(properties);
@@ -17,7 +17,7 @@ void maintainability(Properties properties) {
 	println(formatMetric(changabilityMetric));
 	println(formatMetric(stabilityMetric));
 	println(formatMetric(testabilityMetric));
-	println(formatMetric(getMaintainability(analysabilityMetric, changabilityMetric, stabilityMetric, testabilityMetric)));
+	return getMaintainability(analysabilityMetric, changabilityMetric, stabilityMetric, testabilityMetric);
 }
 
 private Metric getAnalysability(Properties properties) {
