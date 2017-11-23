@@ -1,4 +1,4 @@
-module Lab1::UnitSize
+module Lab1::metrics::UnitSize
 
 import IO;
 import List;

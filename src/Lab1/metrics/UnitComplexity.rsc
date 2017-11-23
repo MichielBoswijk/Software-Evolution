@@ -1,4 +1,4 @@
-module Lab1::UnitComplexity
+module Lab1::metrics::UnitComplexity
 
 import IO;
 import List;

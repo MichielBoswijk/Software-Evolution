@@ -1,4 +1,4 @@
-module Lab1::Volume
+module Lab1::metrics::Volume
 
 import IO;
 import List;

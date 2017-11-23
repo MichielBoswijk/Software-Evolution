@@ -1,4 +1,4 @@
-module Lab1::UnitTesting
+module Lab1::metrics::UnitTesting
 
 import IO;
 

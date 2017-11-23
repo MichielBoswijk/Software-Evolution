@@ -9,14 +9,15 @@ import lang::java::m3::Core;
 import lang::java::jdt::m3::AST;
 import lang::java::jdt::m3::Core;
 
-import Lab1::Duplication;
 import Lab1::Maintainability;
 import Lab1::Metric;
-import Lab1::UnitComplexity;
-import Lab1::UnitSize;
-import Lab1::UnitTesting;
 import Lab1::Util;
-import Lab1::Volume;
+
+import Lab1::metrics::Duplication;
+import Lab1::metrics::UnitComplexity;
+import Lab1::metrics::UnitSize;
+import Lab1::metrics::UnitTesting;
+import Lab1::metrics::Volume;
 
 void main(loc project) {
 	set[Declaration] ast = createAstsFromEclipseProject(project, true);

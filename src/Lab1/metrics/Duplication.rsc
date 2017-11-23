@@ -1,4 +1,4 @@
-module Lab1::Duplication
+module Lab1::metrics::Duplication
 
 import IO;
 import List;
