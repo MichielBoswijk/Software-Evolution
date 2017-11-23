@@ -8,19 +8,23 @@ import util::Math;
 import Lab1::Metric;
 import Lab1::Util;
 
+int window = 6;
+
 Metric duplication(list[file] files) {
-	int window = 6;
 	int totalLOC = sum([0] + [size(file) | file <- files]);
 	
-	<chunks, chunksPerFile> = createChunks(files, window);
-	map[chunk, int] duplicateDistribution = distribution(chunks);
-	list[chunk] duplicateCandidates = [chunk | chunk <- duplicateDistribution, duplicateDistribution[chunk] != 1];
-	
-	int duplicates = countDuplicates(duplicateCandidates, chunksPerFile, window);
+	int duplicates = computeDuplicates(files);
 	real percentage = duplicates / toReal(totalLOC) * 100;
 	println("Duplicate lines: <duplicates>");
 	println("Duplication percentage: <percentage> %");
 	return toMetric(percentage);
+}
+
+private int computeDuplicates(list[file] files) {
+	<chunks, chunksPerFile> = createChunks(files);
+	map[chunk, int] duplicateDistribution = distribution(chunks);
+	list[chunk] duplicateCandidates = [chunk | chunk <- duplicateDistribution, duplicateDistribution[chunk] != 1];
+	return countDuplicates(duplicateCandidates, chunksPerFile);
 }
 
 private Metric toMetric(real result) {
@@ -31,7 +35,7 @@ private Metric toMetric(real result) {
 		sc = 1;
 	} else if (result <= 10) {
 		sc = 0;
-	} else if (result >= 20) {
+	} else if (result <= 20) {
 		sc = -1;
 	} else {
 		sc = -2;
@@ -39,7 +43,7 @@ private Metric toMetric(real result) {
 	return metric("Duplication", score(sc));
 }
 
-private tuple[list[chunk], list[list[chunk]]] createChunks(list[file] files, int window) {
+private tuple[list[chunk], list[list[chunk]]] createChunks(list[file] files) {
 	list[chunk] chunks = [];
 	list[list[chunk]] chunksPerFile = [];
 	
@@ -56,7 +60,7 @@ private tuple[list[chunk], list[list[chunk]]] createChunks(list[file] files, int
 	return <chunks, chunksPerFile>;
 }
 
-private int countDuplicates(list[chunk] duplicateCandidates, list[list[chunk]] chunksPerFile, int window) {
+private int countDuplicates(list[chunk] duplicateCandidates, list[list[chunk]] chunksPerFile) {
 	int totalDuplicates = 0;
 	int i = 0;
 	
@@ -79,3 +83,18 @@ private int countDuplicates(list[chunk] duplicateCandidates, list[list[chunk]] c
 	}
 	return totalDuplicates;
 }
+
+private file testFile = ["a","b","c","d","e","f","g","h","i","j"];
+private file testFileShuffled5 = ["a","c","d","e","f","g","b","h","i","j"];
+private file testFileShuffled6 = ["a","c","d","e","f","g","h","b","i","j"];
+private file testFileShuffled7 = ["a","c","d","e","f","g","h","i","b","j"];
+private list[file] testFiles = [testFile | _ <- [0..10]];
+
+test bool testEmpty() = computeDuplicates([]) == 0;
+test bool testFiles1() = computeDuplicates([testFile]) == 0;
+test bool testFiles10() = computeDuplicates(testFiles) == 100;
+test bool testFiles5() = computeDuplicates([testFile] + [testFileShuffled5]) == 0;
+test bool testFiles6() = computeDuplicates([testFile] + [testFileShuffled6]) == 12;
+test bool testFiles7() = computeDuplicates([testFile] + [testFileShuffled7]) == 14;
+test bool testMetric100() = duplication(testFiles).score.score == -2;
+test bool testMetric0() = duplication([testFile]).score.score == 2;
