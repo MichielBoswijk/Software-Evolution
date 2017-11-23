@@ -12,7 +12,6 @@ int window = 6;
 
 Metric duplication(list[file] files) {
 	int totalLOC = sum([0] + [size(file) | file <- files]);
-	
 	int duplicates = computeDuplicates(files);
 	real percentage = duplicates / toReal(totalLOC) * 100;
 	println("Duplicate lines: <duplicates>");

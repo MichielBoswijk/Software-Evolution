@@ -14,8 +14,12 @@ import Lab1::RiskProfile;
 import Lab1::Util;
 
 Metric unitSize(set[Declaration] units) {
-	list[int] sizes = [countLOC(unit.src) | unit <- units]; 	
+	list[int] sizes = computeSizes(units);
 	return toMetric(sizes);
+}
+
+private list[int] computeSizes(set[Declaration] units) {
+	return [size(cleanedLines(unit.src)) | unit <- units];
 }
 
 private Metric toMetric(list[int] results) {
@@ -52,3 +56,4 @@ private RiskProfile computeRiskProfile(list[int] results) {
 	
 	return profile(lowPercentage, moderatePercentage, highPercentage, veryHighPercentage);	
 }
+

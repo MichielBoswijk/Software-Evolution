@@ -19,7 +19,6 @@ import Lab1::Util;
 import Lab1::Volume;
 
 void main(loc project) {
-	int before = systemTime();
 	set[Declaration] ast = createAstsFromEclipseProject(project, true);
 	M3 model = createM3FromEclipseProject(project);
 	set[Declaration] units = getUnits(ast);
@@ -39,6 +38,4 @@ void main(loc project) {
 	
 	Properties props = properties(volumeMetric, unitComplexityMetric, duplicationMetric, unitSizeMetric, unitTestingMetric);
 	println(formatMetric(maintainability(props)));
-	int after =systemTime();
-	println("Time taken: <(after - before)/toReal(1000000000)> seconds");
 }

@@ -17,16 +17,12 @@ set[Declaration] getUnits(set[Declaration] ast) {
 	return units;
 }
 
-int countLOC(loc location) {
-	return size(cleanedLines(location));
-}
-
 list[file] getCleanFiles(M3 model) {
 	set[loc] locations = {location | <location,_> <- declaredTopTypes(model)};
 	return [cleanedLines(location) | location <- locations];
 }
 
-private file cleanedLines(loc location) {
+file cleanedLines(loc location) {
 	list[str] lines = [];
 	bool multiline = false;
 

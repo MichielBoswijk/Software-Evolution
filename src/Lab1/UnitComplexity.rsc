@@ -13,7 +13,7 @@ import Lab1::RiskProfile;
 import Lab1::Util;
 
 Metric unitComplexity(set[Declaration] units) {
-	lrel[int,int] results = [<computeCC(unit), countLOC(unit.src)> | unit <- units];
+	lrel[int,int] results = [<computeCC(unit), size(cleanedLines(unit.src))> | unit <- units];
 	return toMetric(results);
 }
 
