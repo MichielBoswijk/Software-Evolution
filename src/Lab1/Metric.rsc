@@ -12,5 +12,4 @@ private str formatScore(score(i)) = "invalid risk score <i>";
 
 public str formatMetric(metric(str name, Score score)) = 
 	"####################
-	'<name>: <formatScore(score)>
-	'####################";
+	'<name>: <formatScore(score)>";
