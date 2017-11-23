@@ -1,4 +1,4 @@
-module Lab1::Willem::Util
+module Lab1::Util
 
 import Prelude;
 

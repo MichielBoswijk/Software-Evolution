@@ -1,4 +1,4 @@
-module Lab1::Willem::Metric
+module Lab1::Metric
 
 data Score = score(int score);
 data Metric = metric(str name, Score score);

@@ -1,4 +1,4 @@
-module Lab1::Willem::Main
+module Lab1::Main
 
 import IO;
 
@@ -6,14 +6,14 @@ import lang::java::m3::Core;
 import lang::java::jdt::m3::AST;
 import lang::java::jdt::m3::Core;
 
-import Lab1::Willem::Duplication;
-import Lab1::Willem::Maintainability;
-import Lab1::Willem::Metric;
-import Lab1::Willem::UnitComplexity;
-import Lab1::Willem::UnitSize;
-import Lab1::Willem::UnitTesting;
-import Lab1::Willem::Util;
-import Lab1::Willem::Volume;
+import Lab1::Duplication2;
+import Lab1::Maintainability;
+import Lab1::Metric;
+import Lab1::UnitComplexity;
+import Lab1::UnitSize;
+import Lab1::UnitTesting;
+import Lab1::Util;
+import Lab1::Volume;
 
 void main(loc project) {
 	set[Declaration] ast = createAstsFromEclipseProject(project, true);
@@ -23,7 +23,7 @@ void main(loc project) {
 	
 	Metric volumeMetric = volume(files);
 	Metric unitComplexityMetric = unitComplexity(units);
-	Metric duplicationMetric = duplication(files);
+	Metric duplicationMetric = duplication(model);
 	Metric unitSizeMetric = unitSize(units);
 	Metric unitTestingMetric = unitTesting();
 	

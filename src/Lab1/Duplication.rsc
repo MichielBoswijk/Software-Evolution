@@ -1,4 +1,4 @@
-module Lab1::Willem::Duplication
+module Lab1::Duplication
 
 import IO;
 import List;
@@ -9,8 +9,8 @@ import util::Math;
 import lang::java::jdt::m3::AST;
 import lang::java::jdt::m3::Core;
 
-import Lab1::Willem::Metric;
-import Lab1::Willem::Util;
+import Lab1::Metric;
+import Lab1::Util;
 
 Metric duplication(list[file] files) {
 	int total = sum([0] + [size(file) | file <- files]);

@@ -1,4 +1,4 @@
-module Lab1::Michiel::Duplication
+module Lab1::Duplication2
 
 import IO;
 import List;
@@ -14,7 +14,7 @@ import lang::java::jdt::m3::AST;
 import util::Benchmark;
 import util::Math;
 
-import Lab1::Michiel::Metric;
+import Lab1::Metric;
 
 alias chunk = list[str];
 alias file = list[str];
@@ -35,7 +35,7 @@ Metric duplication(M3 model) {
 	
 	duplicates = countDuplicates(duplicateCandidates, allLineGroupsPerFile, window);
 	
-	println("<duplicates> : <totalLOC> : <duplicates / toReal(totalLOC)> ");
+	println("Duplicate lines: <duplicates>");
 		
 			
 		
