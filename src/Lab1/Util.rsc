@@ -42,7 +42,7 @@ private file cleanedLines(loc location) {
 			multiline = false;
 		// if no empty line or any comment starting points are found (and not part of multiline), increment counter 
 		} else if (/^($|\/\/|\/\*|\*)/ !:= trim(line) && !multiline) {
-			lines += line;
+			lines += trim(line);
 		}
 	}
 	return lines;
