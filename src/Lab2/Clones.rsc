@@ -32,37 +32,88 @@ map[int,list[node]] getSubtrees(set[Declaration] ast) {
 	return subtrees;
 }
 
-list[node] getClones(map[int,list[node]] subtrees) {
-	list[node] candidates = [];
+lrel[loc, loc] getClones(map[int,list[node]] subtrees) {
+	lrel[node, node] clones = [];
 	list[int] keys = [key | key <- subtrees];
 	for(int key <- sort(keys)) {
 		list[node] bucket = subtrees[key];
-		if(size(bucket) > 1) {
-			int counter = 1;
-			for(i <- bucket) {
-				for(j <- bucket - i) {
-					if(equalSubtrees(i,j)) {
-						visit(i) {
-							case node n: {
-								if(getSubtreeSize(n) > MASS_THRESHOLD) candidates -= n;
-							}
+		int bucketSize = size(bucket);
+		if(bucketSize > 1) {
+			for(countI <- [0..bucketSize]) {
+				for(countJ <- [countI+1..bucketSize]) {
+					node i = bucket[countI];
+					node j = bucket[countJ];
+					if(equalSubtrees(i, j)) {
+						for(s <- getSubtreesFromNode(i)) {
+							clones = removeCloneI(clones, s, i, j);
 						}
-						visit(j) {
-							case node n: {
-								if(getSubtreeSize(n) > MASS_THRESHOLD) candidates -= n;
-							}
+						for(s <- getSubtreesFromNode(j)) {
+							clones = removeCloneJ(clones, s, i, j);
 						}
-						candidates += [i,j];
+						clones += <i, j>;
 					}
 				};
 			};
-			counter+=1;
-			println("Added candidates for size <key> with <size(bucket)> subtrees!! Candidates size <size(candidates)>");
+			println("Added clones for size <key> with <size(bucket)> subtrees!! Candidates size <size(clones)>");
 		}
 	};
-	return candidates;
+	locations = getLocations(clones);
+	for(location <- locations) {
+		println(location);
+	}
+	return locations;
 }
 
 private bool equalSubtrees(node i, node j) {
 	return unsetRec(i) == unsetRec(j);
+}
+
+lrel[loc, loc] getLocations(list[tuple[node, node]] clones) {
+	return [<i.src, j.src> | <i,j> <- clones];
+}
+
+list[node] getSubtreesFromNode(node n) {
+	list[node] subtrees = [];
+	visit(n) {
+		case node subtree: {
+			if(getSubtreeSize(subtree) > MASS_THRESHOLD) subtrees += subtree;
+		}
+	}
+	return subtrees - n;
+}
+
+lrel[node, node] removeCloneI(lrel[node, node] clones, node s, node ni, node nj) {
+	lrel[node, node] result = [];
+	println("S <s.src>, I <ni.src>, J <nj.src>");
+	for(<i,j> <- clones) {
+		if(i == s && isSubtreeOf(j, nj)) {
+			result += <i,j>;
+		}
+	}
+	for(<i,j> <- clones-result) {
+		println("RemovedI <i.src>, <j.src>");
+	}
+	return clones-result;
+}
+
+lrel[node, node] removeCloneJ(lrel[node, node] clones, node s, node ni, node nj) {
+	lrel[node, node] result = [];
+	println("S <s.src>, I <ni.src>, J <nj.src>");
+	for(<i,j> <- clones) {
+		if(j == s && isSubtreeOf(i, ni)) {
+			result += <i,j>;
+		}
+	}
+	for(<i,j> <- clones-result) {
+		println("RemovedJ <i.src>, <j.src>");
+	}
+	return clones-result;
+}
+
+bool isSubtreeOf(node s, node subtree) {
+	bool result = false;
+	visit(subtree) {
+		case node n: if(n == s) result = true;
+	}
+	return result;
 }
