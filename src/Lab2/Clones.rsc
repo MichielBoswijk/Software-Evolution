@@ -12,7 +12,40 @@ import util::Math;
 import lang::java::jdt::m3::AST;
 import lang::java::jdt::m3::Core;
 
-map[int,list[node]] getSubtrees(set[Declaration] ast) {
+public lrel[loc, loc] getClones(set[Declaration] asts) {
+	map[int,list[node]] subtrees = getSubtrees(asts);
+	lrel[node, node] clones = [];
+	list[int] keys = [key | key <- subtrees];
+	for(int key <- sort(keys)) {
+		list[node] bucket = subtrees[key];
+		int bucketSize = size(bucket);
+		if(bucketSize > 1) {
+			for(countI <- [0..bucketSize]) {
+				for(countJ <- [countI+1..bucketSize]) {
+					node i = bucket[countI];
+					node j = bucket[countJ];
+					if(equalSubtrees(i, j)) {
+						for(s <- getSubtreesFromNode(i)) {
+							clones = removeCloneI(clones, s, j);
+						}
+						for(s <- getSubtreesFromNode(j)) {
+							clones = removeCloneJ(clones, s, i);
+						}
+						clones += <i, j>;
+					}
+				};
+			};
+			println("Added clones for size <key> with <size(bucket)> subtrees!! Candidates size <size(clones)>");
+		}
+	};
+	locations = getLocations(clones);
+	for(location <- locations) {
+		println(location);
+	}
+	return locations;
+}
+
+private map[int,list[node]] getSubtrees(set[Declaration] ast) {
 	map[int,list[node]] subtrees = ();
 	visit(ast) {
 		case node subtree: {
@@ -32,47 +65,15 @@ map[int,list[node]] getSubtrees(set[Declaration] ast) {
 	return subtrees;
 }
 
-lrel[loc, loc] getClones(map[int,list[node]] subtrees) {
-	lrel[node, node] clones = [];
-	list[int] keys = [key | key <- subtrees];
-	for(int key <- sort(keys)) {
-		list[node] bucket = subtrees[key];
-		int bucketSize = size(bucket);
-		if(bucketSize > 1) {
-			for(countI <- [0..bucketSize]) {
-				for(countJ <- [countI+1..bucketSize]) {
-					node i = bucket[countI];
-					node j = bucket[countJ];
-					if(equalSubtrees(i, j)) {
-						for(s <- getSubtreesFromNode(i)) {
-							clones = removeCloneI(clones, s, i, j);
-						}
-						for(s <- getSubtreesFromNode(j)) {
-							clones = removeCloneJ(clones, s, i, j);
-						}
-						clones += <i, j>;
-					}
-				};
-			};
-			println("Added clones for size <key> with <size(bucket)> subtrees!! Candidates size <size(clones)>");
-		}
-	};
-	locations = getLocations(clones);
-	for(location <- locations) {
-		println(location);
-	}
-	return locations;
-}
-
 private bool equalSubtrees(node i, node j) {
 	return unsetRec(i) == unsetRec(j);
 }
 
-lrel[loc, loc] getLocations(list[tuple[node, node]] clones) {
+private lrel[loc, loc] getLocations(list[tuple[node, node]] clones) {
 	return [<i.src, j.src> | <i,j> <- clones];
 }
 
-list[node] getSubtreesFromNode(node n) {
+private list[node] getSubtreesFromNode(node n) {
 	list[node] subtrees = [];
 	visit(n) {
 		case node subtree: {
@@ -82,38 +83,30 @@ list[node] getSubtreesFromNode(node n) {
 	return subtrees - n;
 }
 
-lrel[node, node] removeCloneI(lrel[node, node] clones, node s, node ni, node nj) {
-	lrel[node, node] result = [];
-	println("S <s.src>, I <ni.src>, J <nj.src>");
-	for(<i,j> <- clones) {
-		if(i == s && isSubtreeOf(j, nj)) {
-			result += <i,j>;
+private lrel[node, node] removeCloneI(lrel[node, node] clones, node s, node j) {
+	lrel[node, node] remove = [];
+	for(<left, right> <- clones) {
+		if(left == s && right.src <= j.src) {
+			remove += <left, right>;
 		}
 	}
-	for(<i,j> <- clones-result) {
-		println("RemovedI <i.src>, <j.src>");
-	}
-	return clones-result;
+	
+	return clones - remove;
 }
 
-lrel[node, node] removeCloneJ(lrel[node, node] clones, node s, node ni, node nj) {
-	lrel[node, node] result = [];
-	println("S <s.src>, I <ni.src>, J <nj.src>");
-	for(<i,j> <- clones) {
-		if(j == s && isSubtreeOf(i, ni)) {
-			result += <i,j>;
+private lrel[node, node] removeCloneJ(lrel[node, node] clones, node s, node i) {
+	lrel[node, node] remove = [];
+	for(<left, right> <- clones) {
+		if(right == s && isSubtreeOf(left, i)) {
+			remove += <left, right>;
 		}
 	}
-	for(<i,j> <- clones-result) {
-		println("RemovedJ <i.src>, <j.src>");
-	}
-	return clones-result;
+	return clones - remove;
 }
 
-bool isSubtreeOf(node s, node subtree) {
-	bool result = false;
+private bool isSubtreeOf(node s, node subtree) {
 	visit(subtree) {
-		case node n: if(n == s) result = true;
+		case node n: if(n == s) return true;
 	}
-	return result;
+	return false;
 }
