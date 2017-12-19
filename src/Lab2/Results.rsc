@@ -9,23 +9,44 @@ import Lab1::Util;
 import util::Math;
 
 data Result = result(loc name, int size, real duplication, int nclones, int nclasses, loc link, list[str] imports);
+data Clone = clone(list[str] code);
 
 public void writeResults(lrel[loc, loc] clones, loc project) {
+	println("Number of clones: <size(clones)*2>");
+	println("Number of clone classes: <size(clones)>");
+	
 	results = toResult(clones, project);
 	writeJSON(|project://Software-Evolution/src/Lab2/Clones.json|, [res | <res, _> <- results]);
 	writeJSON(|project://Software-Evolution/src/Lab2/ClonesCodes.json|, [code | <_, code> <- results]);
 }
 
-private list[tuple[Result, list[str]]] toResult(lrel[loc, loc] clones, loc project) {
-	list[tuple[Result, list[str]]] results = [];
+private list[tuple[Result, Clone]] toResult(lrel[loc, loc] clones, loc project) {
+	int volume = 0;
+	int duplication = 0;
+	list[str] biggest = [];
+	list[tuple[Result, Clone]] results = [];
 	map[loc, lrel[loc, loc]] clonesByFile = groupByFile(clones, project);
 	for(f <- clonesByFile) {
 		lrel[loc, loc] sublist = clonesByFile[f];
 		list[loc] clonesPerFile = [s | <s,_> <- sublist];
 		int fileSize = getFileSize(f);
-		if(size(sublist) > 0) {
-			results += <result(f, fileSize, getDuplication(clonesPerFile, fileSize), size(sublist), size(sublist), f, [s.uri | <_,s> <- sublist]), [readFile(s) | s <- clonesPerFile]>;
-		} 
+		volume += size(cleanedLines(f));
+		cloneSourceCode = [cleanedLines(c) | c <- clonesPerFile];
+		for(a <- cloneSourceCode) {
+			if(size(a) > size(biggest)) {
+				biggest = a;
+			}
+		}
+		duplication += sum([0] + [size(c) | c <- cloneSourceCode]); 
+		results += <result(f, fileSize, getDuplication(clonesPerFile, fileSize), size(sublist), size(sublist), f, [s.uri | <_,s> <- sublist]), clone([readFile(s) | s <- clonesPerFile])>;
+ 
+	}
+	println("Volume <volume>");
+	println("Duplication <duplication>");
+	println("Duplication percentage <duplication/toReal(volume) * 100> %");
+	println("Biggest clone:");
+	for(big <- biggest) {
+		println(big);
 	}
 	return results;
 }
