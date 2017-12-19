@@ -8,35 +8,33 @@ import Map;
 import Node;
 import IO;
 import util::Math;
+import lang::json::IO;
 
-list[node] getClones2(set[Declaration] asts) {
-	list[node] clones = [];
+import lang::java::jdt::m3::AST;
+import lang::java::jdt::m3::Core;
+
+lrel[value, value] getClones2(set[Declaration] asts) {
+	lrel[node, node] clones = [];
 	list[node] subtrees = getAllSubtrees(asts);
 	map[node, list[node]] buckets = createBuckets(subtrees);
 	list[node] keys = [key | key <- buckets];
-	for(key <- sort(keys)) {
+	list[node] sortedKeys = sort(keys, bool(node a, node b){ return getSubtreeSize(a) < getSubtreeSize(b); });
+	for(key <- sortedKeys) {
 		list[node] bucket = buckets[key];
-		if(size(bucket) > 1) {
-			for(i <- bucket) {
-				for(j <- bucket - i) {
+		int bucketSize = size(bucket);
+		if(bucketSize > 1) {
+			for(countI <- [0..bucketSize]) {
+				for(countJ <- [countI+1..bucketSize]) {
+					node i = bucket[countI];
+					node j = bucket[countJ];
 					if(similarity(i, j)) {
-						visit(i) {
-							case node n: {
-								if(getSubtreeSize(n) > MASS_THRESHOLD) {
-									println("deleting node in i");
-									clones -= n;
-								}
-							}
+						for(s <- getSubtreesFromNode(i)) {
+							clones = removeCloneI(clones, s, j);
 						}
-						visit(j) {
-							case node n: {
-								if(getSubtreeSize(n) > MASS_THRESHOLD) {
-									println("deleting node in j");
-									clones -= n;
-								}
-							}
+						for(s <- getSubtreesFromNode(j)) {
+							clones = removeCloneJ(clones, s, i);
 						}
-						clones += [i,j];
+						clones += <i, j>;
 						println("Found <size(clones)> clones");
 					}
 				};	
@@ -44,7 +42,11 @@ list[node] getClones2(set[Declaration] asts) {
 		}
 	};
 	println("Found <size(clones)> clones");
-	return clones;
+	locations = getLocations(clones);
+	for(location <- locations) {
+		println(location);
+	}
+	return locations;
 }
 
 private map[node, list[node]] createBuckets(list[node] subtrees) {
@@ -62,27 +64,6 @@ private map[node, list[node]] createBuckets(list[node] subtrees) {
 	return buckets;
 }
 
-private list[node] getAllSubtrees(set[Declaration] asts) {
-	list[node] subtrees = [];
-	visit(asts) {
-		case node subtree: {
-			if(getSubtreeSize(subtree) > MASS_THRESHOLD) {
-				subtrees += subtree;
-			}
-		}
-	}
-	println("Created <size(subtrees)> subtrees");
-	return subtrees;
-}
-
-private int getSubtreeSize(node subtree) {
-	int size = 0;
-	visit(subtree) {
-		case node n: size += 1;
-	}
-	return size;
-}
-
 bool similarity(node i, node j) {
 	list[node] nodesL = subtreeToList(i);
 	list[node] nodesR = subtreeToList(j);
@@ -93,13 +74,4 @@ bool similarity(node i, node j) {
 	real Similarity = 2*S/toReal(2*S+L+R);
 	println("Values: S <S>, L <L>, R <R>, Similarity <Similarity>");
 	return Similarity > 1 - SIMILARITY_THRESHOLD && Similarity < 1 + SIMILARITY_THRESHOLD;
-}
-
-
-private list[node] subtreeToList(node subtree) {
-	list[node] nodes = [];
-	visit(subtree) {
-		case node n : nodes += unsetRec(n);
-	}
-	return nodes;
 }
