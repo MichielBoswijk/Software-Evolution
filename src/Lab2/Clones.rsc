@@ -65,6 +65,27 @@ private bool similarity(node i, node j) {
 	return unsetRec(i) == unsetRec(j);
 }
 
+public lrel[node, node] removeCloneI(lrel[node, node] clones, node s, node j) {
+	lrel[node, node] remove = [];
+	for(<left, right> <- clones) {
+		if(left == s && isSubtreeOf(right, j)) {
+			remove += <left, right>;
+		}
+	}
+	
+	return clones - remove;
+}
+
+public lrel[node, node] removeCloneJ(lrel[node, node] clones, node s, node i) {
+	lrel[node, node] remove = [];
+	for(<left, right> <- clones) {
+		if(right == s && isSubtreeOf(left, i)) {
+			remove += <left, right>;
+		}
+	}
+	return clones - remove;
+}
+
 private node testNode1 = simpleType(simpleName("String",src=|project://Sample/src/File1.java|(151,6,<8,1>,<8,7>),typ=unresolved()));
 private node testNode2 = simpleType(simpleName("String",src=|project://Sample/src/File2.java|(151,6,<8,1>,<8,7>),typ=unresolved()));
 private node testNode3 = simpleType(simpleName("Int",src=|project://Sample/src/File3.java|(151,6,<8,1>,<8,7>),typ=unresolved()));

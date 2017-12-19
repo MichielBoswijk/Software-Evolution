@@ -1,6 +1,7 @@
 module Lab2::Clones2
 
 import Lab2::Config;
+import Lab2::Clones;
 import Lab2::Normalise;
 import Lab2::Util;
 

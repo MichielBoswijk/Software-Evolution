@@ -60,27 +60,6 @@ public list[node] getSubtreesFromNode(node n) {
 	return subtrees - n;
 }
 
-public lrel[node, node] removeCloneI(lrel[node, node] clones, node s, node j) {
-	lrel[node, node] remove = [];
-	for(<left, right> <- clones) {
-		if(left == s && isSubtreeOf(right, j)) {
-			remove += <left, right>;
-		}
-	}
-	
-	return clones - remove;
-}
-
-public lrel[node, node] removeCloneJ(lrel[node, node] clones, node s, node i) {
-	lrel[node, node] remove = [];
-	for(<left, right> <- clones) {
-		if(right == s && isSubtreeOf(left, i)) {
-			remove += <left, right>;
-		}
-	}
-	return clones - remove;
-}
-
 private Declaration testAst0 = createAstFromFile(|project://Sample/src/WordCount0.java|, false);
 private Declaration testAst1 = createAstFromFile(|project://Sample/src/WordCount1.java|, false);
 private Declaration testAst2 = createAstFromFile(|project://Sample/src/WordCount2.java|, false);
