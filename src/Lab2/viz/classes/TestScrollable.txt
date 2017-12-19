@@ -1,0 +1,109 @@
+public void testFirstWithWhere() throws Exception{
+		Connection con = AllTests.getConnection();
+		try{			
+			con.createStatement().execute("Create Table Scrollable (i counter, v varchar(20))");
+			assertRowCount( 0, "Select * from Scrollable");
+
+			con.createStatement().execute("Insert Into Scrollable(v) Values('qwert')");
+			assertRowCount( 1, "Select * from Scrollable");
+			assertRowCount( 0, "Select * from Scrollable Where 1=0");
+
+            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            testFirstWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0") );
+            testFirstWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0 Order By v") );
+            testFirstWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Group By v") );
+            testFirstWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Group By v Order By v") );
+		}finally{
+            dropTable( con, "Scrollable");
+		}
+	}public void testFirstWithWhere() throws Exception{
+		Connection con = AllTests.getConnection();
+		try{			
+			con.createStatement().execute("Create Table Scrollable (i counter, v varchar(20))");
+			assertRowCount( 0, "Select * from Scrollable");
+
+			con.createStatement().execute("Insert Into Scrollable(v) Values('qwert')");
+			assertRowCount( 1, "Select * from Scrollable");
+			assertRowCount( 0, "Select * from Scrollable Where 1=0");
+
+            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            testFirstWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0") );
+            testFirstWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0 Order By v") );
+            testFirstWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Group By v") );
+            testFirstWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Group By v Order By v") );
+		}finally{
+            dropTable( con, "Scrollable");
+		}
+	}public void testNextWithWhere() throws Exception{
+		Connection con = AllTests.getConnection();
+		try{			
+			con.createStatement().execute("Create Table Scrollable (i counter, v varchar(20))");
+			assertRowCount( 0, "Select * from Scrollable");
+
+			con.createStatement().execute("Insert Into Scrollable(v) Values('qwert')");
+			assertRowCount( 1, "Select * from Scrollable");
+			assertRowCount( 0, "Select * from Scrollable Where 1=0");
+
+            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            testNextWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0") );
+            testNextWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0 Order By v") );
+            testNextWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Group By v") );
+            testNextWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Group By v Order By v") );
+		}finally{
+            dropTable( con, "Scrollable");
+		}
+	}public void testNextWithWhere() throws Exception{
+		Connection con = AllTests.getConnection();
+		try{			
+			con.createStatement().execute("Create Table Scrollable (i counter, v varchar(20))");
+			assertRowCount( 0, "Select * from Scrollable");
+
+			con.createStatement().execute("Insert Into Scrollable(v) Values('qwert')");
+			assertRowCount( 1, "Select * from Scrollable");
+			assertRowCount( 0, "Select * from Scrollable Where 1=0");
+
+            Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            testNextWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0") );
+            testNextWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0 Order By v") );
+            testNextWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Group By v") );
+            testNextWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Group By v Order By v") );
+		}finally{
+            dropTable( con, "Scrollable");
+		}
+	}public void testLastWithWhere() throws Exception{
+		Connection con = AllTests.getConnection();
+		try{			
+			con.createStatement().execute("Create Table Scrollable (i counter, v varchar(20))");
+			assertRowCount( 0, "Select * from Scrollable");
+
+			con.createStatement().execute("Insert Into Scrollable(v) Values('qwert')");
+			assertRowCount( 1, "Select * from Scrollable");
+			assertRowCount( 0, "Select * from Scrollable Where 1=0");
+
+			Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            testLastWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0") );
+            testLastWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0 Order By v") );
+            testLastWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Order By v") );
+            testLastWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Group By v Order By v") );
+		}finally{
+            dropTable( con, "Scrollable");
+		}
+	}public void testLastWithWhere() throws Exception{
+		Connection con = AllTests.getConnection();
+		try{			
+			con.createStatement().execute("Create Table Scrollable (i counter, v varchar(20))");
+			assertRowCount( 0, "Select * from Scrollable");
+
+			con.createStatement().execute("Insert Into Scrollable(v) Values('qwert')");
+			assertRowCount( 1, "Select * from Scrollable");
+			assertRowCount( 0, "Select * from Scrollable Where 1=0");
+
+			Statement st = con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            testLastWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0") );
+            testLastWithWhereAssert( st.executeQuery("Select * from Scrollable Where 1=0 Order By v") );
+            testLastWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Order By v") );
+            testLastWithWhereAssert( st.executeQuery("Select v from Scrollable Where 1=0 Group By v Order By v") );
+		}finally{
+            dropTable( con, "Scrollable");
+		}
+	}

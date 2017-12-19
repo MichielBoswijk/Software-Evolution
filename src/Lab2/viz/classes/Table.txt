@@ -1,0 +1,53 @@
+@Override
+    void writeMagic(FileChannel raFile) throws Exception{
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putInt(MAGIC_TABLE);
+        buffer.putInt(TABLE_VIEW_VERSION);
+        buffer.position(0);
+        raFile.write(buffer);
+	}@Override
+    void writeMagic(FileChannel raFile) throws Exception{
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putInt(MAGIC_TABLE);
+        buffer.putInt(TABLE_VIEW_VERSION);
+        buffer.position(0);
+        raFile.write(buffer);
+	}if(serializeConnections.size() > 0){
+                        Iterator values = locks.values().iterator();
+                        while(values.hasNext()){
+                            TableStorePage lock = (TableStorePage)values.next();
+                            if(lock.con != con) return null;
+                        }
+                    }if(serializeConnections.size() > 0){
+                        Iterator values = locks.values().iterator();
+                        while(values.hasNext()){
+                            TableStorePage lock = (TableStorePage)values.next();
+                            if(lock.con != con) return null;
+                        }
+                    }if(serializeConnections.size() > 0){
+							Iterator values = locks.values().iterator();
+							while(values.hasNext()){
+								TableStorePage lock = (TableStorePage)values.next();
+								if(lock.con != con) return null;
+							}
+						}if(serializeConnections.size() > 0){
+							Iterator values = locks.values().iterator();
+							while(values.hasNext()){
+								TableStorePage lock = (TableStorePage)values.next();
+								if(lock.con != con) return null;
+							}
+						}// first check if another connection has a lock before creating a table lock
+						if(locks.size() > 0){
+							Iterator values = locks.values().iterator();
+							while(values.hasNext()){
+								TableStorePage lock = (TableStorePage)values.next();
+								if(lock.con != con) return null;
+							}
+						}// first check if another connection has a lock before creating a table lock
+						if(locks.size() > 0){
+							Iterator values = locks.values().iterator();
+							while(values.hasNext()){
+								TableStorePage lock = (TableStorePage)values.next();
+								if(lock.con != con) return null;
+							}
+						}

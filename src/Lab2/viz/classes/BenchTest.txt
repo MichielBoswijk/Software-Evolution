@@ -1,0 +1,25 @@
+if (count != rowCount){
+                // There are not the correct count of rows.
+                if (count == 0){
+                    createTestDataWithClassicInsert( con );
+                    rs = st1.executeQuery( "SELECT count(*) FROM " + tableName);
+                    rs.next();
+                    count = rs.getInt(1);
+                }
+                if (count != rowCount){
+                    System.out.println( "  Failed: Only " + (rowCount-count) + " rows were found.");
+                    return;
+                }
+            }if (count != rowCount){
+                // There are not the correct count of rows.
+                if (count == 0){
+                    createTestDataWithClassicInsert( con );
+                    rs = st1.executeQuery( "SELECT count(*) FROM " + tableName);
+                    rs.next();
+                    count = rs.getInt(1);
+                }
+                if (count != rowCount){
+                    System.out.println( "  Failed: Only " + (rowCount-count) + " rows were deleted.");
+                    return;
+                }
+            }

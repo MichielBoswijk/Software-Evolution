@@ -1,0 +1,178 @@
+public Date getDate(int i) throws SQLException {
+        try{
+			Expression expr = getValue(i);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getDate( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Date getDate(int i) throws SQLException {
+        try{
+			Expression expr = getValue(i);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getDate( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Date getDate(int i) throws SQLException {
+        try{
+			Expression expr = getValue(i);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getDate( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Date getDate(int i) throws SQLException {
+        try{
+			Expression expr = getValue(i);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getDate( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Date getDate(int i) throws SQLException {
+        try{
+			Expression expr = getValue(i);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getDate( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int i) throws SQLException {
+        try{
+            Expression expr = getValue(i);
+            wasNull = expr.isNull();
+            if(wasNull) return null;
+            return DateTime.getTimestamp( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int i) throws SQLException {
+        try{
+            Expression expr = getValue(i);
+            wasNull = expr.isNull();
+            if(wasNull) return null;
+            return DateTime.getTimestamp( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int i) throws SQLException {
+        try{
+            Expression expr = getValue(i);
+            wasNull = expr.isNull();
+            if(wasNull) return null;
+            return DateTime.getTimestamp( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int i) throws SQLException {
+        try{
+            Expression expr = getValue(i);
+            wasNull = expr.isNull();
+            if(wasNull) return null;
+            return DateTime.getTimestamp( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int i) throws SQLException {
+        try{
+            Expression expr = getValue(i);
+            wasNull = expr.isNull();
+            if(wasNull) return null;
+            return DateTime.getTimestamp( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int i) throws SQLException {
+        try{
+			Expression expr = getValue(i);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTime( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int i) throws SQLException {
+        try{
+			Expression expr = getValue(i);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTime( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int i) throws SQLException {
+        try{
+			Expression expr = getValue(i);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTime( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int i) throws SQLException {
+        try{
+			Expression expr = getValue(i);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTime( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int i) throws SQLException {
+        try{
+			Expression expr = getValue(i);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTime( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Object getObject(int i) throws SQLException {
+        try{
+            Object obj = getValue(i).getObject();
+            wasNull = obj == null;
+            return obj;
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Object getObject(int i) throws SQLException {
+        try{
+            Object obj = getValue(i).getObject();
+            wasNull = obj == null;
+            return obj;
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public String getString(int i) throws SQLException {
+        try{
+            String obj = getValue(i).getString();
+            wasNull = obj == null;
+            return obj;
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public BigDecimal getBigDecimal(int i, int scale) throws SQLException {
+        try{
+            MutableNumeric obj = getValue(i).getNumeric();
+            wasNull = obj == null;
+            if(wasNull) return null;
+            return obj.toBigDecimal(scale);
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public BigDecimal getBigDecimal(int i) throws SQLException {
+        try{
+            MutableNumeric obj = getValue(i).getNumeric();
+            wasNull = obj == null;
+            if(wasNull) return null;
+            return obj.toBigDecimal();
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }

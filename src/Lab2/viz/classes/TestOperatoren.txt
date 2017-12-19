@@ -1,0 +1,25 @@
+public static Test suite() throws Exception{
+        TestSuite theSuite = new TestSuite("Operatoren");
+        for(int i=0; i<TESTS.length; i++){
+            theSuite.addTest(new TestOperatoren( TESTS[i] ) );
+        }
+        return theSuite;
+    }public static Test suite() throws Exception{
+        TestSuite theSuite = new TestSuite("Operatoren");
+        for(int i=0; i<TESTS.length; i++){
+            theSuite.addTest(new TestOperatoren( TESTS[i] ) );
+        }
+        return theSuite;
+    }public static Test suite() throws Exception{
+        TestSuite theSuite = new TestSuite("Operatoren");
+        for(int i=0; i<TESTS.length; i++){
+            theSuite.addTest(new TestOperatoren( TESTS[i] ) );
+        }
+        return theSuite;
+    }private static TestValue a(String dataType, Object small, Object large){
+        TestValue value = new TestValue();
+        value.dataType  = dataType;
+        value.small     = small;
+        value.large     = large;
+        return value;
+    }

@@ -1,0 +1,26 @@
+public static Test suite() throws Exception{
+        TestSuite theSuite = new TestSuite("Exceptions");
+        for(int i=0; i<TESTS.length; i++){
+            theSuite.addTest(new TestExceptions( TESTS[i] ) );
+        }
+        return theSuite;
+    }public static Test suite() throws Exception{
+        TestSuite theSuite = new TestSuite("Exceptions");
+        for(int i=0; i<TESTS.length; i++){
+            theSuite.addTest(new TestExceptions( TESTS[i] ) );
+        }
+        return theSuite;
+    }public static Test suite() throws Exception{
+        TestSuite theSuite = new TestSuite("Exceptions");
+        for(int i=0; i<TESTS.length; i++){
+            theSuite.addTest(new TestExceptions( TESTS[i] ) );
+        }
+        return theSuite;
+    }private void init() throws Exception{
+    	if(init) return;
+		Connection con = AllTests.getConnection();
+		Statement st = con.createStatement();
+		dropTable( con, "exceptions");
+		st.execute("Create Table exceptions (c varchar(30), i int)");
+		init = true;
+    }

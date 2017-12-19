@@ -1,0 +1,8 @@
+catch(SQLException ex){
+                result[i] = EXECUTE_FAILED;
+                if(failed == null){
+                    failed = new BatchUpdateException(ex.getMessage(), ex.getSQLState(), ex.getErrorCode(), result);
+                    failed.initCause(ex);
+                }
+                failed.setNextException(ex);
+            }

@@ -1,0 +1,29 @@
+public void testDuplicatedColumnInsert() throws Exception{
+        Connection con = AllTests.getConnection();
+        try{
+            Statement st = con.createStatement();
+            st.execute("Create Table DuplicatedColumn(col INT)");
+            try{
+                st.execute("INSERT INTO DuplicatedColumn(col,Col) Values(1,2)");
+                fail("SQLException 'Duplicated Column' should be throw");
+            }catch(SQLException e){
+                assertSQLException("01000", 0, e);
+            }
+        }finally{
+            dropTable(con, "DuplicatedColumn");
+        }
+    }public void testDuplicatedColumnAlter() throws Exception{
+        Connection con = AllTests.getConnection();
+        try{
+            Statement st = con.createStatement();
+            st.execute("Create Table DuplicatedColumn(col INT)");
+            try{
+                st.execute("ALTER TABLE DuplicatedColumn Add Col INT");
+                fail("SQLException 'Duplicated Column' should be throw");
+            }catch(SQLException e){
+                assertSQLException("01000", 0, e);
+            }
+        }finally{
+            dropTable(con, "DuplicatedColumn");
+        }
+    }

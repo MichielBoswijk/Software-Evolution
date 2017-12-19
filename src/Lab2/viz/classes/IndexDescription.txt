@@ -1,0 +1,13 @@
+private final void writeMagic(FileChannel raFile) throws Exception{
+	    ByteBuffer buffer = ByteBuffer.allocate(8);
+	    buffer.putInt(MAGIC_INDEX);
+	    buffer.putInt(INDEX_VERSION);
+	    buffer.position(0);
+	    raFile.write(buffer);
+	}private final void writeMagic(FileChannel raFile) throws Exception{
+	    ByteBuffer buffer = ByteBuffer.allocate(8);
+	    buffer.putInt(MAGIC_INDEX);
+	    buffer.putInt(INDEX_VERSION);
+	    buffer.position(0);
+	    raFile.write(buffer);
+	}

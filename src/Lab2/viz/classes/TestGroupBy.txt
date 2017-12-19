@@ -1,0 +1,23 @@
+public void testComplex() throws Exception{
+		init();
+		Connection con = AllTests.getConnection();
+		PreparedStatement pr = con.prepareStatement("Select abs(sum(abs(3-id))+2) FROM " + table1 + " Group By name+'a' Order By 'b'+(Name+'a')");
+		for(int i=1; i<=3; i++){
+			ResultSet rs = pr.executeQuery( );
+			assertTrue  ( "loop:"+i, rs.next());
+			assertEquals( "loop:"+i, 5, rs.getInt(1));
+			assertTrue  ( "loop:"+i, rs.next());
+			assertEquals( "loop:"+i, 4, rs.getInt(1));
+		}
+	}public void testCountOrderBy() throws Exception{
+		init();
+		Connection con = AllTests.getConnection();
+		PreparedStatement pr = con.prepareStatement("Select count(*) FROM " + table1 + " Group By name Order By name DESC");
+		for(int i=1; i<=3; i++){
+			ResultSet rs = pr.executeQuery( );
+			assertTrue  ( "loop:"+i, rs.next());
+			assertEquals( "loop:"+i, 1, rs.getInt(1));
+			assertTrue  ( "loop:"+i, rs.next());
+			assertEquals( "loop:"+i, 3, rs.getInt(1));
+		}
+	}

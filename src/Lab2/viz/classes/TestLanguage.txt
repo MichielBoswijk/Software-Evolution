@@ -1,0 +1,17 @@
+if (diff.size() > 0) {
+				failed = true;
+                msgBuf.append("\nMissing entries for language ").append( OTHER_LANGUAGES[i] ).append(": ");
+				
+				for (Iterator itr = diff.iterator(); itr.hasNext(); ) {
+					msgBuf.append(itr.next());
+					if (itr.hasNext()) msgBuf.append(',');
+				}
+			}if (diff.size() > 0) {
+                failed = true;
+                msgBuf.append("\nAdditional entries for language ").append( OTHER_LANGUAGES[i] ).append(": ");
+                
+                for (Iterator itr = diff.iterator(); itr.hasNext(); ) {
+                    msgBuf.append(itr.next());
+                    if (itr.hasNext()) msgBuf.append(',');
+                }
+            }

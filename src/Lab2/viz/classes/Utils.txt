@@ -1,0 +1,8 @@
+static String bytes2hex( byte[] bytes ){
+        StringBuffer buf = new StringBuffer(bytes.length << 1);
+        for(int i=0; i<bytes.length; i++){
+            buf.append( digits[ (bytes[i] >> 4) & 0x0F ] );
+            buf.append( digits[ (bytes[i]     ) & 0x0F ] );
+        }
+        return buf.toString();
+    }

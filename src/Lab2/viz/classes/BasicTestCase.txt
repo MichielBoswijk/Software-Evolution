@@ -1,0 +1,32 @@
+private static String bytes2hex( byte[] bytes ){
+		StringBuffer buf = new StringBuffer(bytes.length << 1);
+		for(int i=0; i<bytes.length; i++){
+			buf.append( digits[ (bytes[i] >> 4) & 0x0F ] );
+			buf.append( digits[ (bytes[i]     ) & 0x0F ] );
+		}
+		return buf.toString();
+	}if(needTrim && obj2 != null){
+			// trim for CHAR and BINARY
+			if(obj2 instanceof String) obj2 = ((String)obj2).trim();
+			if(obj2 instanceof byte[]){
+				byte[] tmp = (byte[])obj2;
+				int k=tmp.length-1;
+				for(; k>= 0; k--) if(tmp[k] != 0) break;
+				k++;
+				byte[] tmp2 = new byte[k];
+				System.arraycopy( tmp, 0, tmp2, 0, k);
+				obj2 = tmp2;
+			}
+		}if(needTrim && obj1 != null){
+            // trim for CHAR and BINARY
+            if(obj1 instanceof String) obj1 = ((String)obj1).trim();
+            if(obj1 instanceof byte[]){
+                byte[] tmp = (byte[])obj1;
+                int k=tmp.length-1;
+                for(; k>= 0; k--) if(tmp[k] != 0) break;
+                k++;
+                byte[] tmp2 = new byte[k];
+                System.arraycopy( tmp, 0, tmp2, 0, k);
+                obj1 = tmp2;
+            }
+        }

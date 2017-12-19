@@ -1,0 +1,8 @@
+protected void setUp() throws Exception{
+    	if(init) return;
+		Connection con = AllTests.getConnection();
+		Statement st = con.createStatement();
+		dropTable( con, "statement");
+		st.execute("Create Table statement (c varchar(30), i counter)");
+		init = true;
+    }

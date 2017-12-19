@@ -1,0 +1,15 @@
+@Override
+    void writeMagic(FileChannel raFile) throws Exception{
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putInt(MAGIC_VIEW);
+        buffer.putInt(TABLE_VIEW_VERSION);
+        buffer.position(0);
+        raFile.write(buffer);
+	}@Override
+    void writeMagic(FileChannel raFile) throws Exception{
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putInt(MAGIC_VIEW);
+        buffer.putInt(TABLE_VIEW_VERSION);
+        buffer.position(0);
+        raFile.write(buffer);
+	}

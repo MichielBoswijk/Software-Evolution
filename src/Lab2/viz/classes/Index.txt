@@ -1,0 +1,27 @@
+if(node.isEmpty()){
+				if(isLastValue){
+					node.addRemainderKey( rowOffset, key, i );
+					return null;
+				}
+				return node.addRootValue( key, i);
+			}else
+			if(equals(node.getRemainderValue(), key, i)){
+				if(isLastValue){
+					node.saveValue( rowOffset);
+					return null;
+				}
+				return node.addRoot();
+			}if(node.isEmpty()){
+				if(isLast){
+					node.addRemainderKey( rowOffset, key, i );
+					return null;
+				}
+				return node.addRootValue( key, i );
+			}else
+			if(equals(node.getRemainderValue(), key, i)){
+				if(isLast){
+					node.saveValue(rowOffset);
+					return null;
+				}
+				return node.addRoot();
+			}

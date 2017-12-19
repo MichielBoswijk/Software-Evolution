@@ -1,0 +1,145 @@
+public void testRollback() throws Exception{
+		Connection con = AllTests.getConnection();
+		try{			
+		    con.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");
+			con.setAutoCommit(false);
+			assertRowCount( 0, "Select * from transactions");
+
+			con.createStatement().execute("Insert Into transactions(v) Values('qwert')");
+			assertRowCount( 1, "Select * from transactions");
+
+			con.createStatement().execute("Insert Into transactions(v) Select v From transactions");
+			assertRowCount( 2, "Select * from transactions");
+
+			con.createStatement().execute("Insert Into transactions(v) (Select v From transactions)");
+			assertRowCount( 4, "Select * from transactions");
+			
+			con.rollback();
+			assertRowCount( 0, "Select * from transactions");
+			
+		}finally{
+			try{
+				con.createStatement().execute("Drop Table transactions");
+			}catch(Throwable e){e.printStackTrace();}
+			con.setAutoCommit(true);
+		}
+	}/**
+	 * In the table there is already one row that is commited.
+	 */
+	public void testRollbackWithOneCommitRow() throws Exception{
+		Connection con = AllTests.getConnection();
+		try{			
+			con.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");
+			assertRowCount( 0, "Select * from transactions");
+
+			con.createStatement().execute("Insert Into transactions(v) Values('qwert')");
+			assertRowCount( 1, "Select * from transactions");
+
+			con.setAutoCommit(false);
+			con.createStatement().execute("Insert Into transactions(v) Select v From transactions");
+			assertRowCount( 2, "Select * from transactions");
+
+			con.createStatement().execute("Insert Into transactions(v) (Select v From transactions)");
+			assertRowCount( 4, "Select * from transactions");
+			
+			con.rollback();
+			assertRowCount( 1, "Select * from transactions");
+			
+		}finally{
+			try{
+				con.createStatement().execute("Drop Table transactions");
+			}catch(Throwable e){e.printStackTrace();}
+			con.setAutoCommit(true);
+		}
+	}/**
+	 * In the table there is already one row that is committed.
+	 */
+	public void testCommitWithOneCommitRow() throws Exception{
+		Connection con = AllTests.getConnection();
+		try{			
+			con.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");
+			assertRowCount( 0, "Select * from transactions");
+
+			con.createStatement().execute("Insert Into transactions(v) Values('qwert')");
+			assertRowCount( 1, "Select * from transactions");
+
+			con.setAutoCommit(false);
+			con.createStatement().execute("Insert Into transactions(v) Select v From transactions");
+			assertRowCount( 2, "Select * from transactions");
+
+			con.createStatement().execute("Insert Into transactions (Select * From transactions)");
+			assertRowCount( 4, "Select * from transactions");
+			
+			con.commit();
+			assertRowCount( 4, "Select * from transactions");
+			
+		}finally{
+			try{
+				con.createStatement().execute("Drop Table transactions");
+			}catch(Throwable e){e.printStackTrace();}
+			con.setAutoCommit(true);
+		}
+	}public void testReadCommited() throws Exception{
+		Connection con1 = AllTests.getConnection();
+		Connection con2 = AllTests.createConnection();
+		try{		
+			con2.setTransactionIsolation( Connection.TRANSACTION_READ_COMMITTED );
+			con1.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");
+			assertRowCount( 0, "Select * from transactions");
+
+			con1.setAutoCommit(false);
+			con1.createStatement().execute("Insert Into transactions(v) Values('qwert2')");
+
+			ResultSet rs2 = con2.createStatement().executeQuery("Select count(*) from transactions");
+			assertTrue( rs2.next() );
+			assertEquals( 0, rs2.getInt(1) );
+		}finally{
+            dropTable(con1, "transactions");
+			con1.setAutoCommit(true);
+			con2.close();
+		}
+	}public void testCommit() throws Exception{
+		Connection con = AllTests.getConnection();
+		try{			
+			con.setAutoCommit(false);
+			con.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");
+			assertRowCount( 0, "Select * from transactions");
+
+			con.createStatement().execute("Insert Into transactions(v) Values('qwert')");
+			assertRowCount( 1, "Select * from transactions");
+
+			con.createStatement().execute("Insert Into transactions(v) Select v From transactions");
+			assertRowCount( 2, "Select * from transactions");
+
+			con.createStatement().execute("Insert Into transactions Select * From transactions");
+			assertRowCount( 4, "Select * from transactions");
+			
+			con.commit();
+			assertRowCount( 4, "Select * from transactions");
+			
+		}finally{
+			try{
+				con.createStatement().execute("Drop Table transactions");
+			}catch(Throwable e){e.printStackTrace();}
+			con.setAutoCommit(true);
+		}
+	}public void testReadUncommited() throws Exception{
+		Connection con1 = AllTests.getConnection();
+		Connection con2 = AllTests.createConnection();
+		try{		
+			con2.setTransactionIsolation( Connection.TRANSACTION_READ_UNCOMMITTED );
+			con1.createStatement().execute("Create Table transactions (i int identity, v varchar(20))");
+			assertRowCount( 0, "Select * from transactions");
+
+			con1.setAutoCommit(false);
+			con1.createStatement().execute("Insert Into transactions(v) Values('qwert2')");
+
+			ResultSet rs2 = con2.createStatement().executeQuery("Select count(*) from transactions");
+			assertTrue( rs2.next() );
+			assertEquals( 1, rs2.getInt(1) );
+		}finally{
+		    dropTable(con1, "transactions");
+			con1.setAutoCommit(true);
+			con2.close();
+		}
+	}

@@ -1,0 +1,82 @@
+a {
+  text-decoration: none!important;
+  color: #ddd!important;
+} 
+
+body {
+  background-color: #222!important;
+}
+
+table {
+  margin-top: 50px;
+  color: #ddd;
+  font-family: Menlo, Monaco, "Courier New", monospace;
+}
+
+td {
+  border-top: 2px dotted #ccc!important;
+  border-bottom: 2px dotted #ccc!important;
+  color: #DCCF8F;
+}
+
+th {
+  border-top: 2px dotted #ccc!important;
+  border-bottom: 2px dotted #ccc!important;
+}
+
+pre {
+  height: 600px;
+  margin-top: 30px!important;
+  border-width: 1px!important;
+  border-color: white!important;
+}
+
+code {
+  overflow: auto!important;
+  word-wrap: normal!important;
+  white-space: pre!important;
+}
+
+.node {
+  font: 300 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  fill: #aaa;
+}
+
+.node:hover {
+  fill: #fff;
+}
+
+.link {
+  stroke: #586e75;
+  stroke-opacity: 0.4;
+  fill: none;
+  pointer-events: none;
+}
+
+.node:hover,
+.node--source,
+.node--target {
+  font-weight: 700;
+}
+
+.node--source {
+  fill: #DCCF8F;
+}
+
+.node--target {
+  fill: #cb4b16;
+}
+
+.link--source,
+.link--target {
+  stroke-opacity: 1;
+  stroke-width: 2px;
+}
+
+.link--source {
+  stroke: #cb4b16;
+}
+
+.link--target {
+  stroke: #DCCF8F
+}

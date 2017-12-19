@@ -1,0 +1,22 @@
+if(status.nodeValue != null){
+						if(status.nodeValue instanceof IndexNode){
+							level++;
+							nodeStack.push(
+								new IndexNodeScrollStatus( 	(IndexNode)status.nodeValue, 
+														(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), 
+														scroll, level));
+							continue;
+						}else
+							return getReturnValue(status.nodeValue);
+					}if(status.nodeValue != null){
+						if(status.nodeValue instanceof IndexNode){
+							level++;
+							nodeStack.push(
+								new IndexNodeScrollStatus( 	(IndexNode)status.nodeValue, 
+														(expressions.get(level).getAlias() != SQLTokenizer.DESC_STR), 
+														scroll, level));
+							continue;
+						}else
+							return getReturnValue(status.nodeValue);
+					}
+					//There is no RowOffset in this node

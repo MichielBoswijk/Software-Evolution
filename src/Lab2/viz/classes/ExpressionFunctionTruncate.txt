@@ -1,0 +1,11 @@
+if(places > 0){
+			for(int i=0; i<places; i++){
+				factor *= 10;
+			}
+			value *= factor;
+		}else{
+			for(int i=0; i>places; i--){
+				factor *= 10;
+			}
+			value /= factor;
+		}

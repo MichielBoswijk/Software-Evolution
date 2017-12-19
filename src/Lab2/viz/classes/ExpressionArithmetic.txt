@@ -1,0 +1,17 @@
+switch(operation){
+            case ADD:       return left.getInt() + right.getInt();
+            case SUB:       return left.getInt() - right.getInt();
+            case MUL:       return left.getInt() * right.getInt();
+            case DIV:       return left.getInt() / right.getInt();
+            case NEGATIVE:  return               - left.getInt();
+            case MOD:		return left.getInt() % right.getInt();
+            case BIT_NOT:   return               ~ left.getInt();
+        }switch(operation){
+            case ADD: return left.getLong() + right.getLong();
+            case SUB: return left.getLong() - right.getLong();
+            case MUL: return left.getLong() * right.getLong();
+            case DIV: return left.getLong() / right.getLong();
+            case NEGATIVE:  return          - left.getLong();
+            case MOD:		return left.getLong() % right.getLong();
+            case BIT_NOT:   return          ~ right.getInt();
+        }

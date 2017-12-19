@@ -1,0 +1,234 @@
+public Object getObject(int columnIndex) throws SQLException {
+        try{
+            Object obj = getValue(columnIndex).getApiObject();
+            wasNull = obj == null;
+            return obj;
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public BigDecimal getBigDecimal(int columnIndex, int scale) throws SQLException {
+        try{
+            MutableNumeric obj = getValue(columnIndex).getNumeric();
+            wasNull = obj == null;
+            if(wasNull) return null;
+            return obj.toBigDecimal(scale);
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTime( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTime( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTime( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTime( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTime( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Date getDate(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getDate( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Date getDate(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getDate( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Date getDate(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getDate( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Date getDate(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getDate( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Date getDate(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getDate( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTimestamp( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTimestamp( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTimestamp( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTimestamp( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int columnIndex) throws SQLException {
+        try{
+			Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+			if(wasNull) return null;
+			return DateTime.getTimestamp( expr.getLong() );
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Date getDate(int columnIndex, Calendar cal) throws SQLException {
+        try{
+            if(cal == null){
+                return getDate(columnIndex);
+            }
+            Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+            if(wasNull) return null;
+            return new Date(DateTime.addDateTimeOffset( expr.getLong(), cal.getTimeZone() ));
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Date getDate(int columnIndex, Calendar cal) throws SQLException {
+        try{
+            if(cal == null){
+                return getDate(columnIndex);
+            }
+            Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+            if(wasNull) return null;
+            return new Date(DateTime.addDateTimeOffset( expr.getLong(), cal.getTimeZone() ));
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int columnIndex, Calendar cal) throws SQLException {
+        try{
+            if(cal == null){
+                return getTimestamp(columnIndex);
+            }
+            Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+            if(wasNull) return null;
+            return new Timestamp(DateTime.addDateTimeOffset( expr.getLong(), cal.getTimeZone() ));
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Timestamp getTimestamp(int columnIndex, Calendar cal) throws SQLException {
+        try{
+            if(cal == null){
+                return getTimestamp(columnIndex);
+            }
+            Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+            if(wasNull) return null;
+            return new Timestamp(DateTime.addDateTimeOffset( expr.getLong(), cal.getTimeZone() ));
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int columnIndex, Calendar cal) throws SQLException {
+        try{
+            if(cal == null){
+                return getTime(columnIndex);
+            }
+            Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+            if(wasNull) return null;
+            return new Time(DateTime.addDateTimeOffset( expr.getLong(), cal.getTimeZone() ));
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public Time getTime(int columnIndex, Calendar cal) throws SQLException {
+        try{
+            if(cal == null){
+                return getTime(columnIndex);
+            }
+            Expression expr = getValue(columnIndex);
+            wasNull = expr.isNull();
+            if(wasNull) return null;
+            return new Time(DateTime.addDateTimeOffset( expr.getLong(), cal.getTimeZone() ));
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }public BigDecimal getBigDecimal(int columnIndex) throws SQLException {
+        try{
+            MutableNumeric obj = getValue(columnIndex).getNumeric();
+            wasNull = obj == null;
+            if(wasNull) return null;
+            return obj.toBigDecimal();
+        }catch(Exception e){
+            throw SmallSQLException.createFromException( e );
+        }
+    }

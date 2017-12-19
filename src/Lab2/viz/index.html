@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+
+<head>
+    <!-- Custom styles for this template -->
+    <!-- <link href="css/prism.css" rel="stylesheet" /> -->
+    <link href="css/pojoaque.css" rel="stylesheet" />
+    <!-- <link href="css/duotoneSea.css" rel="stylesheet" /> -->
+    <link href="css/graphStyle.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+    
+<body>
+  
+  <div class="row">
+    <div class="col-sm-6" id="left-section">
+    </div>
+    <div class="col-sm-5" id="right-section">
+
+
+
+      <table class="table table-sm">
+        <tr>
+          <th><a href="#" onclick="sortName()">Name</a></th>
+          <td id="name">smallsql0.21_src</td>
+        </tr>
+        <tr>
+          <th><a href="#" onclick="sortSize()">LOC</a></th>
+          <td id="loc">24031</td>
+        </tr>
+        <tr>
+          <th><a href="#" onclick="sortDuplication()">Duplication %</a></th>
+          <td id="duplication">9.67084182900</td>
+        </tr>
+        <tr>
+          <th><a href="#" onclick="sortClones()"># Clone Classes</a></th>
+          <td id="nClasses">277 (out of 554 clones)</td>
+        </tr>
+      </table>      
+
+      <pre><code class="language-java" id="codeblock">
+        
+      </code></pre>
+
+    </div>
+  </div>
+
+  <script src="js/popper.js"></script>
+
+  <!-- D3 logic -->
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <!-- Bootstrap logic -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Javascript for the visualization -->
+  <script src="js/graphScript.js"></script>
+  <!-- Javascript for highlighting code -->
+  <script src="js/prism.js"></script>
+</body>
