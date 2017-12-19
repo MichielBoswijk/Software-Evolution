@@ -1,14 +1,13 @@
 module Lab2::Util
 
+import Lab2::Config;
+
 import List;
 import Node;
 import IO;
 
 import lang::java::jdt::m3::AST;
 import lang::java::jdt::m3::Core;
-
-public int MASS_THRESHOLD = 50;
-public real SIMILARITY_THRESHOLD = 0.15;
 
 public int getSubtreeSize(node subtree) {
 	int size = 0;

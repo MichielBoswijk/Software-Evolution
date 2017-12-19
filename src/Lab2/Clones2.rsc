@@ -1,5 +1,6 @@
 module Lab2::Clones2
 
+import Lab2::Config;
 import Lab2::Normalise;
 import Lab2::Util;
 
@@ -8,12 +9,11 @@ import Map;
 import Node;
 import IO;
 import util::Math;
-import lang::json::IO;
 
 import lang::java::jdt::m3::AST;
 import lang::java::jdt::m3::Core;
 
-lrel[value, value] getClones2(set[Declaration] asts) {
+public lrel[loc, loc] getClones2(set[Declaration] asts) {
 	lrel[node, node] clones = [];
 	list[node] subtrees = getAllSubtrees(asts);
 	map[node, list[node]] buckets = createBuckets(subtrees);
@@ -42,10 +42,7 @@ lrel[value, value] getClones2(set[Declaration] asts) {
 		}
 	};
 	println("Found <size(clones)> clones");
-	locations = getLocations(clones);
-	for(location <- locations) {
-		println(location);
-	}
+	lrel[loc, loc] locations = getLocations(clones);
 	return locations;
 }
 
