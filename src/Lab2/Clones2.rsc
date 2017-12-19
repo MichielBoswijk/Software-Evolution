@@ -72,3 +72,15 @@ bool similarity(node i, node j) {
 	println("Values: S <S>, L <L>, R <R>, Similarity <Similarity>");
 	return Similarity > 1 - SIMILARITY_THRESHOLD && Similarity < 1 + SIMILARITY_THRESHOLD;
 }
+
+private node testNode1 = simpleType(simpleName("String",src=|project://Sample/src/File1.java|(151,6,<8,1>,<8,7>),typ=unresolved()));
+private node testNode2 = simpleType(simpleName("String",src=|project://Sample/src/File2.java|(151,6,<8,1>,<8,7>),typ=unresolved()));
+private node testNode3 = simpleType(simpleName("Int",src=|project://Sample/src/File3.java|(151,6,<8,1>,<8,7>),typ=unresolved()));
+private node testNode4 = simpleName("Int",src=|project://Sample/src/File3.java|(151,6,<8,1>,<8,7>),typ=unresolved());
+test bool testSimilarity1() = similarity(testNode1, testNode2);
+test bool testSimilarity2() = !similarity(testNode2, testNode3);
+test bool testCreateBuckets1() = createBuckets([]) == ();
+test bool testCreateBuckets2() = size(createBuckets([testNode1, testNode2, testNode3])) == 1;
+test bool testCreateBuckets3() = size(createBuckets([testNode1, testNode4])) == 2;
+test bool testClones1() = size(getClones2({})) == 0;
+test bool testClones2() = size(getClones2(createAstsFromEclipseProject(|project://Sample|, false))) == 3;

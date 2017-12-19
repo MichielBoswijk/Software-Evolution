@@ -11,16 +11,21 @@ import util::Math;
 data Result = result(loc name, int size, real duplication, int nclones, int nclasses, loc link, list[str] imports);
 
 public void writeResults(lrel[loc, loc] clones, loc project) {
-	writeJSON(|project://Software-Evolution/src/Lab2/Clones.json|, toResult(clones, project));
+	results = toResult(clones, project);
+	writeJSON(|project://Software-Evolution/src/Lab2/Clones.json|, [res | <res, _> <- results]);
+	writeJSON(|project://Software-Evolution/src/Lab2/ClonesCodes.json|, [code | <_, code> <- results]);
 }
 
-private list[Result] toResult(lrel[loc, loc] clones, loc project) {
-	list[Result] results = [];
-	map[loc, set[loc]] clonesByFile = groupByFile(clones, project);
+private list[tuple[Result, list[str]]] toResult(lrel[loc, loc] clones, loc project) {
+	list[tuple[Result, list[str]]] results = [];
+	map[loc, lrel[loc, loc]] clonesByFile = groupByFile(clones, project);
 	for(f <- clonesByFile) {
-		list[loc] sublist = toList(clonesByFile[f]);
+		lrel[loc, loc] sublist = clonesByFile[f];
+		list[loc] clonesPerFile = [s | <s,_> <- sublist];
 		int fileSize = getFileSize(f);
-		results += result(f, fileSize, getDuplication(sublist, fileSize), size(sublist), size(sublist), f, [s.uri | s <- sublist]); 
+		if(size(sublist) > 0) {
+			results += <result(f, fileSize, getDuplication(clonesPerFile, fileSize), size(sublist), size(sublist), f, [s.uri | <_,s> <- sublist]), [readFile(s) | s <- clonesPerFile]>;
+		} 
 	}
 	return results;
 }
@@ -33,20 +38,20 @@ private real getDuplication(list[loc] links, int fileSize) {
 	return sum([0] + [size(cleanedLines(link)) | link <- links])/toReal(fileSize) * 100;
 }
 
-private map[loc, set[loc]] groupByFile(lrel[loc, loc] clones, loc project) {
-	map[loc, set[loc]] clonesByFile = ();
+private map[loc, lrel[loc, loc]] groupByFile(lrel[loc, loc] clones, loc project) {
+	map[loc, lrel[loc, loc]] clonesByFile = ();
 	set[loc] allFiles = find(project, "java");
 	for(f <- allFiles) {
-		set[loc] sublist = {};
+		set[tuple[loc, loc]] sublist = {};
 		for(<left, right> <- clones) {
 			if(f.uri == left.uri) {
-				sublist += right;
+				sublist += <left, right>;
 			}
 			if(f.uri == right.uri) {
-				sublist += left;
+				sublist += <right, left>;
 			}
 		}
-		clonesByFile += (f : sublist);
+		clonesByFile += (f : toList(sublist));
 	}
 	return clonesByFile;
 }

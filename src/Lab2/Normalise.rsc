@@ -116,3 +116,10 @@ private Modifier normaliseModifiers(Modifier subtree) {
 	    case \default()  => \public()
 	}
 }
+
+private node testAst0 = createAstFromFile(|project://Sample/src/WordCount0.java|, false);
+private node testAst1 = createAstFromFile(|project://Sample/src/WordCount1.java|, false);
+private node testAst2 = createAstFromFile(|project://Sample/src/WordCount2.java|, false);
+test bool testNormalise1() = normalise(testAst0) == normalise(testAst1);
+test bool testNormalise2() = normalise(testAst1) == normalise(testAst2);
+test bool testNormalise3() = normalise(testAst2) == normalise(testAst0);
